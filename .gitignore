@@ -1,0 +1,9 @@
+dist/
+build/
+.idea/
+MANIFEST.in
+README.rst
+__pycache__/
+async_iter.egg-info/
+*.pyc
+setup.py
