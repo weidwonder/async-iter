@@ -1,8 +1,12 @@
-# AsyncIter (0.1.0)  
+# AsyncIter (0.1.1)  
 
 A async function tool supporting threading and gevent.
 You can easily make the group of functions run in the same time without worry about 
 thread exceed maximum.
+
+# Installation
+
+> pip install async-iter 
 
 # Quickstart
 Construct a multi-task `processor` by `AsyncIterHandler(<type>)`, then you can use the `processor`
