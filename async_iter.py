@@ -21,7 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-import Queue
+try:
+    import Queue
+except ImportError:
+    import queue as Queue
 import threading
 
 
@@ -86,7 +89,7 @@ class ThreadPool:
 
 
 
-class MultiTaskHandler:
+class AsyncIterHandler:
     """ multi-task handler
     """
 
@@ -123,7 +126,7 @@ class MultiTaskHandler:
         out_dict = pool.result_dict
         if iter_type == 'list':
             out_iter = [None] * len(task_iter)
-            for i in xrange(len(out_iter)):
+            for i in range(len(out_iter)):
                 out_iter[i] = out_dict[i]
         else:
             out_iter = out_dict
