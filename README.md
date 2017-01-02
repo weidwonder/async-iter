@@ -1,8 +1,8 @@
 # AsyncIter (0.1.1)  
 
-A async function tool supporting threading and gevent.
-You can easily make the group of functions run in the same time without worry about 
-thread exceed maximum.
+A async function tool supporting threading and gevent.  
+You can easily make a group of functions run in the same time without worrying about 
+thread maximum exceed.
 
 # Installation
 
