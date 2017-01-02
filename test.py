@@ -1,13 +1,3 @@
-# Multitasking
-A async function tool supporting threading and gevent.
-You can easily make the group of functions run in the same time without worry about 
-thread exceed maximum.
-
-# Quickstart
-Construct a multi-task `processor` by `MultiTaskHandler(<type>)`, then you can use the `processor`
-to process the list of or dict of functions.
-
-```python
 import random
 from time import sleep
 
@@ -21,9 +11,9 @@ async_iter = MultiTaskHandler('threading')  # using multi-threading
 
 def test_func(*args, **kws):  # a exhibition func
     x = random.randint(0, 1000)
-    print 'func', x, 'start:', args, kws
+    # print 'func', x, 'start:', args, kws
     sleep(1)
-    print 'func', x, 'end', args, kws
+    # print 'func', x, 'end', args, kws
     return x
 
 
@@ -42,4 +32,3 @@ result_list = async_iter([
 ], worker_limit=2)
 
 print result_list  # example: [798, 958, 882]
-```
