@@ -1,4 +1,4 @@
-# AsyncIter (0.1.1)  
+# AsyncIter (0.1.2)  
 
 A async function tool supporting threading and gevent.  
 You can easily make a group of functions run in the same time without worrying about 
@@ -45,4 +45,26 @@ result_list = async_iter([
 ], worker_limit=2)
 
 print(result_list)  # example: [798, 958, 882]
+```
+
+# DEBUG & PROFILING
+
+The fake async\_iter allows you to profile your functions. If you uncomment above `async_iter = AsyncIterHandler('fake')`
+then you will get a output like this:
+
+Every line represents: 
+
+> [key of function] : [time cost in microseconds] \> [time cost percent of entire task]
+
+```txt
+********** cost: 0.002495 (S) **********
+some_key_C : 1068 > 42.81%
+some_key_B : 1063 > 42.61%
+some_key_A : 364 > 14.59%
+{'some_key_C': 839, 'some_key_B': 318, 'some_key_A': 803}
+********** cost: 0.002163 (S) **********
+2 : 1058 > 48.91%
+0 : 827 > 38.23%
+1 : 278 > 12.85%
+[575, 94, 346]
 ```

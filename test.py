@@ -3,9 +3,9 @@ from time import sleep
 
 from async_iter import AsyncIterHandler
 
-async_iter = AsyncIterHandler('threading')  # using multi-threading
-# async_iter = MultiTaskHandler('gevent')  # using gevent
-# async_iter = MultiTaskHandler('fake')  # serial, using in debugging
+# async_iter = AsyncIterHandler('threading')  # using multi-threading
+# async_iter = AsyncIterHandler('gevent')  # using gevent
+async_iter = AsyncIterHandler('fake')  # serial, using in debugging
 
 def test_func(*args, **kws):  # a exhibition func
     x = random.randint(0, 1000)
