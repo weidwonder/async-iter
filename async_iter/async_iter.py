@@ -1,31 +1,4 @@
-"""
-MIT License
-
-Copyright (c) [2017] [weidwonder]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-import datetime
-
-import operator
-
-__version__ = '0.1.2'
+__version__ = '0.1.1'
 
 try:
     import Queue
@@ -92,6 +65,7 @@ class ThreadPool:
         """
         self.is_join = True
         self.task_queue.join()
+
 
 
 class AsyncIterHandler:
@@ -174,7 +148,6 @@ class AsyncIterHandler:
     def _multitasking_fake(task_iter, **kwargs):
         """ fake multi-task for debugging, it's sync actually
         """
-        time_list = []
         if isinstance(task_iter, dict):
             out_iter = {}
             iter_type = 'dict'
@@ -196,15 +169,7 @@ class AsyncIterHandler:
                 3: v,
             }.get(len(v))
             func, args, kws = v
-            start = datetime.datetime.now()
             out_iter[k] = func(*args, **kws)
-            end = datetime.datetime.now()
-            time_list.append((k, (end - start).microseconds))
-        time_list.sort(key=operator.itemgetter(1), reverse=True)
-        all_time = float(sum([_[1] for _ in time_list]))
-        print '*' * 10, 'cost:', all_time / 1e6, '(S)', '*' * 10
-        for t in time_list:
-            print t[0], ':', t[1], '>', str(round(t[1] / all_time * 100, 2)) + '%'
         return out_iter
 
     HANDLER_TYPES = {

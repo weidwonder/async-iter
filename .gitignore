@@ -7,3 +7,4 @@ __pycache__/
 async_iter.egg-info/
 *.pyc
 setup.py
+setup.cfg
