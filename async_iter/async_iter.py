@@ -1,4 +1,8 @@
-__version__ = '0.1.1'
+import datetime
+
+import operator
+
+__version__ = '0.1.2'
 
 try:
     import Queue
@@ -65,7 +69,6 @@ class ThreadPool:
         """
         self.is_join = True
         self.task_queue.join()
-
 
 
 class AsyncIterHandler:
@@ -148,6 +151,7 @@ class AsyncIterHandler:
     def _multitasking_fake(task_iter, **kwargs):
         """ fake multi-task for debugging, it's sync actually
         """
+        time_list = []
         if isinstance(task_iter, dict):
             out_iter = {}
             iter_type = 'dict'
@@ -169,7 +173,15 @@ class AsyncIterHandler:
                 3: v,
             }.get(len(v))
             func, args, kws = v
+            start = datetime.datetime.now()
             out_iter[k] = func(*args, **kws)
+            end = datetime.datetime.now()
+            time_list.append((k, (end - start).microseconds))
+        time_list.sort(key=operator.itemgetter(1), reverse=True)
+        all_time = float(sum([_[1] for _ in time_list]))
+        print '*' * 10, 'cost:', all_time / 1e6, '(S)', '*' * 10
+        for t in time_list:
+            print t[0], ':', t[1], '>', str(round(t[1] / all_time * 100, 2)) + '%'
         return out_iter
 
     HANDLER_TYPES = {
