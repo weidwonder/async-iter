@@ -2,13 +2,14 @@ import datetime
 
 import operator
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 try:
     import Queue
 except ImportError:
     import queue as Queue
 import threading
+import sys
 
 
 class ThreadPool:
@@ -199,6 +200,7 @@ class AsyncIterHandler:
         :param int worker_limit: thread worker limit in the same time
         :return: result dict or list
         """
+        threading._profile_hook = sys.getprofile()
         return self.handler(task_iter, **kwargs)
 
     def set_type(self, handler_type):
