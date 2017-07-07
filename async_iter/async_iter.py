@@ -24,7 +24,7 @@ class ThreadPool:
         pass
 
     def __init__(self, worker_limit):
-        self.task_queue = Queue.Queue(maxsize=worker_limit)
+        self.task_queue = Queue(maxsize=worker_limit)
         self.result_dict = {}
         self.is_join = False
 
@@ -33,15 +33,23 @@ class ThreadPool:
         """
 
         def func_wrap():
-            self.result_dict[key] = func(*args, **kws)
-            # mark one position in queue is available.
-            self.task_queue.get()
-            self.task_queue.task_done()
+            try:
+                self.result_dict[key] = func(*args, **kws)
+            except:
+                raise
+            finally:
+                # mark one position in queue is available.
+                self.task_queue.get()
+                self.task_queue.task_done()
 
         def func_origin():
-            func(*args, **kws)
-            self.task_queue.get()
-            self.task_queue.task_done()
+            try:
+                func(*args, **kws)
+            except:
+                raise
+            finally:
+                self.task_queue.get()
+                self.task_queue.task_done()
 
         if key is not self.NULLKEY:
             return func_wrap
